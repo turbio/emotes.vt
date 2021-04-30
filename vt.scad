@@ -22,13 +22,14 @@ emotions = [
 for (i = [0 : len(emotions)-1]) translate([(body_width+20)*i, 0, 0]) {
 	intersection() {
 		color([.5, .5, .5])
-			translate([-21, 0, -7])
+			translate([-21, 10, -7])
 			rotate([90])
-			linear_extrude(height=5)
+			linear_extrude(height=20)
 			import(str("vector/", emotions[i], "_face.svg"));
 
-		//translate([body_width/2, 0, lower_body_height+screen_height/2]) cube([screen_height,100,20], center = true);
+		translate([body_width/2, 10+screen_inset, lower_body_height+screen_height/2]) cube([screen_height,20,20], center = true);
 	}
+
 
 	difference() {
 		//body
