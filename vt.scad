@@ -12,6 +12,7 @@ vent_p = 4;
 bezel = 4;
 
 emotions = [
+	"uwu",
 	"joy",
 	"happy",
 	"meh",
