@@ -1,7 +1,7 @@
 screen_inset = 1;
 screen_height = 35;
 body_depth = 20;
-body_width = 44;
+body_width = 40;
 lower_body_height = 13.5;
 
 crt_cover_depth = 12;
@@ -9,19 +9,20 @@ crt_cover_side_angle = 30;
 
 vent_p = 4;
 
-bezel = 4;
+bezel = 10;
 
 emotions = [
-	"uwu",
-	"joy",
-	"happy",
-	"meh",
-	"sad",
-	"angry",
+	"none"
+	//"uwu",
+	//"joy",
+	//"happy",
+	//"meh",
+	//"sad",
+	//"angry",
 ];
 
 for (i = [0 : len(emotions)-1]) translate([(body_width+20)*i, 0, 0]) {
-	intersection() {
+	if (emotions[i] != "none") intersection() {
 		color([.5, .5, .5])
 			translate([-21, 10, -7])
 			rotate([90])
@@ -71,9 +72,34 @@ for (i = [0 : len(emotions)-1]) translate([(body_width+20)*i, 0, 0]) {
 			}
 
 		// disk slot
-		translate([32.5, -10, 8]) minkowski() {
+		translate([body_width-11.5, -10, 8]) minkowski() {
 			cube([7.5, 12, 1.5]);
 			rotate([90, 0, 0]) cylinder(r=1, h=1, $fn=20);
 		}
+
+		translate([4, screen_inset+2-.1, 2])
+			cube([body_width-(4*2), 100, 100]);
 	}
+}
+
+translate([6, 4, 5]) {
+	board_width = 27.78;
+	board_height = 39.22;
+	screen_height = 23.40;
+	screen_lr_pad = 2.19;
+	screen_top_pad = 6.33;
+
+	board_depth = 1;
+	screen_depth = 1;
+
+	color([.4,.4,.9])
+		cube([board_width, board_depth, board_height]);
+
+	color([.3,.3,.3])
+		translate([screen_lr_pad, -screen_depth, board_height-screen_height-screen_top_pad])
+		cube([board_width - (screen_lr_pad*2), screen_depth,screen_height]);
+
+	color([.5,.3,.3])
+		translate([.81, -screen_depth/2, board_height-29.22-screen_top_pad+1.33])
+		cube([board_width - (.81*2), screen_depth, 29.22]);
 }
